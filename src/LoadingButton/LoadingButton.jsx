@@ -12,6 +12,7 @@ import PropTypes from "prop-types"
   BorderRadius: "7px",
   showLoadingIcon:  This sets if the icon is loading or not. 
   padding: 7,
+   isFullWidth: sets if the button is full width, 
 
 */
 class LoadingButton extends Component {
@@ -208,7 +209,7 @@ LoadingButton.defaultProps = {
   textColor: "#FFFFFF",
   padding: 7,
   buttonColor: "#ff6347",
-  isFullWidth:true,
+  isFullWidth:false,
 }
 LoadingButton.propTypes = {
   showLoadingIcon: PropTypes.bool,
