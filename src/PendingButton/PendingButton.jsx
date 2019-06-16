@@ -37,7 +37,14 @@ class PendingButton extends Component {
       this.setState({
         isFirstRun: false,
       })
+      if(this.props.isLoading){
+          this.setState({
+            textVisible: "none",
+            spinnerVisible:"block",
+          })
+      }
     }
+    
   }
   componentWillUnmount() {}
 
@@ -101,7 +108,7 @@ class PendingButton extends Component {
 
         <GenericButton
         ref={this.menuWindow}
-
+         bRadius = {this.props.BorderRadius}
           color={this.props.buttonColor}
           textcolor={this.props.textColor}
           style={{
@@ -217,7 +224,7 @@ PendingButton.defaultProps = {
   spinnerWidth: 1,
   spinnerHeight: 12,
   backgroundColor: "#FFF",
-  BorderRadius: "7px",
+  BorderRadius: "2px",
   showLoadingIcon: true,
   textColor: "#FFFFFF",
   padding: 7,
@@ -288,15 +295,15 @@ const GenericButton = styled.button`
   border-style: solid;
   border-radius: 2px;
   border: 1px solid rgba(38, 38, 38, 0.05);
-  max-height: 32px !important;
+  max-height: 44px !important;
   font-size: 16px !important;
   color: ${props => props.textcolor};
   background-color: ${props => props.color};
 
   cursor: pointer;
   height: auto;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 
   outline: none;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, Roboto,
