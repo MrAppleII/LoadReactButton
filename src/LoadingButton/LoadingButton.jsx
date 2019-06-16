@@ -57,17 +57,29 @@ class LoadingButton extends Component {
       var mheight = this.menuWindow.current.scrollHeight
 
       //console.log(~(window.innerHeight-this.menuWindow.current.getBoundingClientRect().top))
-      console.log(this.menuWindow.current.scrollHeight)
+    //  console.log(this.menuWindow.current.scrollHeight)
       if (additionalHeight <= 0) {
         additionalHeight = 0
       }
-      this.setState({
-        spinnerHeight: mheight / 2 - 10,
-        minButtonWidth: additionalSpacing + mheight / 2 + 10,
-        RadiusForSpinner: mheight / 4,
-        minButtonHeight:
-          this.menuWindow.current.scrollHeight + additionalHeight + 8,
-      })
+      if(this.props.isFullWidth!=true){
+        this.setState({
+          spinnerHeight: mheight / 2 - 10,
+          minButtonWidth:""+( additionalSpacing + mheight / 2 + 10)+"px",
+          RadiusForSpinner: mheight / 4,
+          minButtonHeight:
+            this.menuWindow.current.scrollHeight + additionalHeight + 8,
+        })
+
+      }else{
+        this.setState({
+          spinnerHeight: mheight / 2 - 10,
+          minButtonWidth: "100%",
+          RadiusForSpinner: mheight / 4,
+          minButtonHeight:
+            this.menuWindow.current.scrollHeight + additionalHeight + 8,
+        })
+      }
+  
     }
   }
 
@@ -83,7 +95,7 @@ class LoadingButton extends Component {
           color={this.props.buttonColor}
           textcolor={this.props.textColor}
           style={{
-            minWidth: "" + this.state.minButtonWidth + "px",
+            minWidth: this.state.minButtonWidth , 
             minHeight: "" + this.state.minButtonHeight + "px",
             padding: "" + this.props.padding + "px",
           }}
@@ -163,7 +175,7 @@ class LoadingButton extends Component {
           textcolor={this.props.textColor}
           color={this.props.buttonColor}
           style={{
-            minWidth: "" + this.state.minButtonWidth + "px",
+            minWidth: this.state.minButtonWidth,
             minHeight: "" + this.state.minButtonHeight + "px",
             padding: "" + this.props.padding + "px",
           }}
@@ -196,6 +208,7 @@ LoadingButton.defaultProps = {
   textColor: "#FFFFFF",
   padding: 7,
   buttonColor: "#ff6347",
+  isFullWidth:true,
 }
 LoadingButton.propTypes = {
   showLoadingIcon: PropTypes.bool,
@@ -206,27 +219,32 @@ LoadingButton.propTypes = {
   backgroundColor: PropTypes.string,
   BorderRadius: PropTypes.string,
   buttonColor: PropTypes.string,
+  isFullWidth:PropTypes.bool,
 }
 const MoveToLeft = keyframes`
 from{
-    left:25%;
+    left:10%;
+    opacity:0.1;
 }
 to{
     left:0%;
+    opacity:1;
 }
 `
 const MoveFromLeft = keyframes`
 from{
-    right:25%;
+    right:10%;
+    opacity:0.1;
 }
 to{
+  opacity:1;
     right:0%;
 }
 
 `
 const ButtonText = styled.div`
   position: relative;
-  will-change: opacity, position;
+  will-change: opacity, right,left;
   &.left {
     animation: ${MoveToLeft};
     animation-duration: 0.4s;
@@ -291,7 +309,7 @@ const Holder = styled.div`
 const OuterWrapper = styled.div`
 position: relative;
 top: 50%;
-align-self: center
+align-self: center;
 height:100%;
 margin-left:  ${props => "" + props.radius + "px"};;
 
